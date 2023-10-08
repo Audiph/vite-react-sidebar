@@ -1,13 +1,13 @@
 import { createContext, useContext, useState } from 'react';
+import { links, social } from './data';
 
 const GlobalContext = createContext();
 
 export const useGlobalContext = () => useContext(GlobalContext);
 
 const AppContext = ({ children }) => {
-  const [name, setName] = useState('peter');
   return (
-    <GlobalContext.Provider value={{ name, setName }}>
+    <GlobalContext.Provider value={{ links, socialLinks: social }}>
       {children}
     </GlobalContext.Provider>
   );
