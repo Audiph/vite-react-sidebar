@@ -1,27 +1,44 @@
 import { createContext, useContext, useState } from 'react';
 import { links, social } from '../data';
 
-const GlobalContext = createContext();
+const AppContext = createContext();
 
-export const useGlobalContext = () => useContext(GlobalContext);
+export const AppProvider = ({ children }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-const AppContext = ({ children }) => {
-  const [openModal, setOpenModal] = useState(false);
-  const [openSideBar, setOpenSideBar] = useState(false);
+  const openSideBar = () => {
+    setIsSidebarOpen(true);
+  };
+
+  const closeSideBar = () => {
+    setIsSidebarOpen(false);
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <GlobalContext.Provider
+    <AppContext.Provider
       value={{
         links,
         socialLinks: social,
-        openModal,
-        setOpenModal,
+        isModalOpen,
+        isSidebarOpen,
         openSideBar,
-        setOpenSideBar,
+        closeSideBar,
+        openModal,
+        closeModal,
       }}
     >
       {children}
-    </GlobalContext.Provider>
+    </AppContext.Provider>
   );
 };
 
-export default AppContext;
+export const useGlobalContext = () => useContext(AppContext);
