@@ -1,6 +1,5 @@
 import React from 'react';
 import { useGlobalContext } from '../utils/context';
-import Link from './Link';
 
 const NavLinks = () => {
   const { links } = useGlobalContext();
@@ -8,7 +7,15 @@ const NavLinks = () => {
   return (
     <ul className="links">
       {links.map((item) => {
-        return <Link />;
+        const { id, url, text, icon } = item;
+        return (
+          <li key={id}>
+            <a href={url}>
+              {icon}
+              {text}
+            </a>
+          </li>
+        );
       })}
     </ul>
   );
